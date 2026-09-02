@@ -1,0 +1,3 @@
+import AdminResourcePage from "@/features/admin/components/AdminResourcePage";
+export const metadata = { title: "Categories | Uomo Admin" };
+export default function CategoriesPage() { return <AdminResourcePage eyebrow="Workspace / Categories" title="Categories" description="Organise products into clear, discoverable collections." columns={["Category", "Products", "Visibility"]} rows={[["Men", "428", "Active"], ["Women", "356", "Active"], ["Shoes", "184", "Active"], ["Accessories", "96", "Active"], ["Sale", "72", "Active"]]} statusColumn={2} placeholder="Search categories..." action="Add category" />; }

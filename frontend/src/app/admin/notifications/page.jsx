@@ -1,0 +1,3 @@
+import AdminResourcePage from "@/features/admin/components/AdminResourcePage";
+export const metadata = { title: "Notifications | Uomo Admin" };
+export default function NotificationsPage() { return <AdminResourcePage eyebrow="Customer / Notifications" title="Notifications" description="Keep the team informed about important store activity." columns={["Notification", "Type", "Created", "Status"]} rows={[["New order #10482 received", "New order", "2 minutes ago", "Unread"], ["Leather tote bag is low in stock", "Low stock", "18 minutes ago", "Unread"], ["Payment received from Jackson Lee", "Payment", "1 hour ago", "Read"], ["New review needs approval", "Review", "3 hours ago", "Read"]]} statusColumn={3} placeholder="Search notifications..." action="Mark all read" />; }

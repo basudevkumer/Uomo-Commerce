@@ -10,9 +10,11 @@ import {
   HelpCircle,
   LayoutDashboard,
   Menu,
+  MessageCircle,
   Search,
   Settings,
   ShoppingBag,
+  ShoppingCart,
   Star,
   Truck,
   UserRound,
@@ -20,12 +22,11 @@ import {
 } from "lucide-react";
 
 const navigation = [
-  { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
-  { label: "My Orders", href: "/dashboard/order", icon: ShoppingBag, count: "3" },
-  { label: "Wishlist", href: "/dashboard/wishlist", icon: Star },
-  { label: "Addresses", href: "/dashboard/address", icon: Truck },
-  { label: "Downloads", href: "/dashboard/downloads", icon: Download },
-  { label: "Account details", href: "/dashboard/account-details", icon: Settings },
+  { label: "MY ACCOUNT", items: [
+    ["Overview", "/dashboard", LayoutDashboard], ["My Orders", "/dashboard/order", ShoppingBag, "3"], ["Wishlist", "/dashboard/wishlist", Star, "8"], ["Addresses", "/dashboard/address", Truck], ["Account Details", "/dashboard/account-details", Settings],
+  ]},
+  { label: "SHOPPING", items: [["Cart", "/cart", ShoppingCart], ["Notifications", "/dashboard/notifications", Bell]] },
+  { label: "SUPPORT", items: [["Help Center", "/contact", HelpCircle], ["Contact Support", "/contact", MessageCircle]] },
 ];
 
 function Logo() {
@@ -61,40 +62,11 @@ function Sidebar({ open, onClose }) {
         </div>
 
         <div className="custom-scrollbar flex min-h-0 flex-1 flex-col justify-between overflow-y-auto px-4 py-7">
-          <nav aria-label="My account" className="space-y-1.5">
-            <p className="mb-4 px-3 text-[11px] font-bold uppercase tracking-[0.18em] text-second">My account</p>
-            {navigation.map(({ label, href, icon: Icon, count }) => {
-              const active = pathname === href;
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  onClick={onClose}
-                  aria-current={active ? "page" : undefined}
-                  className={`group flex min-h-[48px] items-center justify-between rounded-[16px] px-4 text-[14px] font-medium transition-all ${
-                    active
-                      ? "bg-red text-white shadow-[0_8px_20px_rgba(214,0,28,0.16)]"
-                      : "text-second hover:bg-secondbg hover:text-head"
-                  }`}
-                >
-                  <span className="flex items-center gap-3.5">
-                    <Icon size={19} strokeWidth={active ? 2.1 : 1.8} />
-                    {label}
-                  </span>
-                  {count && (
-                    <span className={`min-w-6 rounded-full px-2 py-1 text-center text-[10px] font-semibold ${active ? "bg-white/18 text-white" : "bg-secondbg text-second"}`}>
-                      {count}
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
+          <nav aria-label="My account" className="custom-scrollbar flex-1 space-y-6 overflow-y-auto">
+            {navigation.map(({ label, items }) => <div key={label} className="space-y-1.5"><p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-second">{label}</p>{items.map(([itemLabel, href, Icon, count]) => { const active = pathname === href; return <Link key={`${itemLabel}-${href}`} href={href} onClick={onClose} aria-current={active ? "page" : undefined} className={`group flex min-h-[43px] items-center justify-between rounded-[14px] px-4 text-[13px] font-medium transition-all ${active ? "bg-red text-white shadow-[0_8px_20px_rgba(214,0,28,0.16)]" : "text-second hover:bg-secondbg hover:text-head"}`}><span className="flex items-center gap-3"><Icon size={17} strokeWidth={active ? 2.1 : 1.8} />{itemLabel}</span>{count && <span className={`min-w-5 rounded-full px-1.5 py-1 text-center text-[10px] font-semibold ${active ? "bg-white/18 text-white" : "bg-secondbg text-second"}`}>{count}</span>}</Link>;})}</div>)}
           </nav>
 
           <div className="space-y-1.5">
-            <Link href="/contact" className="flex items-center gap-3.5 rounded-[14px] px-4 py-3 text-[13px] font-medium text-second hover:bg-secondbg hover:text-head">
-              <HelpCircle size={18} strokeWidth={1.8} /> Help center
-            </Link>
             <Link href="/logout" className="flex items-center gap-3.5 rounded-[14px] px-4 py-3 text-[13px] font-medium text-second hover:bg-secondbg hover:text-head">
               <UserRound size={18} strokeWidth={1.8} /> Sign out
             </Link>

@@ -1,0 +1,3 @@
+import AdminResourcePage from "@/features/admin/components/AdminResourcePage";
+export const metadata = { title: "Reports | Uomo Admin" };
+export default function ReportsPage() { return <AdminResourcePage eyebrow="Insights / Reports" title="Reports" description="Download clear sales, product, customer and inventory summaries." columns={["Report", "Period", "Updated", "Format"]} rows={[["Sales report", "March 2026", "Today, 09:42", "CSV / PDF"], ["Product report", "Q1 2026", "Yesterday", "CSV / PDF"], ["Customer report", "March 2026", "Mar 18, 2026", "CSV / PDF"], ["Inventory report", "March 2026", "Mar 18, 2026", "CSV / PDF"]]} placeholder="Search reports..." action="Export report" />; }

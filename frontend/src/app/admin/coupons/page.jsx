@@ -1,0 +1,3 @@
+import AdminResourcePage from "@/features/admin/components/AdminResourcePage";
+export const metadata = { title: "Coupons | Uomo Admin" };
+export default function CouponsPage() { return <AdminResourcePage eyebrow="Sales / Coupons" title="Coupons" description="Create and manage promotional offers for your customers." columns={["Code", "Discount", "Usage", "Expires", "Status"]} rows={[["SAVE20", "20% off", "428 / 1,000", "Dec 31, 2026", "Active"], ["NEWUSER", "$15 off", "86 / Unlimited", "Never", "Active"], ["SUMMER25", "25% off", "1,204 / 1,500", "Aug 31, 2026", "Active"], ["WELCOME10", "10% off", "Expired", "Jan 31, 2026", "Inactive"]]} statusColumn={4} placeholder="Search coupon codes..." action="Create coupon" />; }
