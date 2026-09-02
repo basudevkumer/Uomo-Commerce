@@ -1,0 +1,6 @@
+{
+  "name": "@uomo/backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend workspace foundation for Uomo; business logic is not implemented yet."
+}
