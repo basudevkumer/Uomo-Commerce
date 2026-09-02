@@ -50,7 +50,7 @@ function Sidebar({ open, onClose }) {
         />
       )}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[264px] flex-col border-r border-footer bg-white transition-transform duration-300 md:sticky md:top-0 md:z-30 md:h-screen md:translate-x-0 lg:w-[288px] ${
+        className={`fixed inset-y-0 left-0 z-50 flex min-h-0 w-[264px] flex-col overflow-hidden border-r border-footer bg-white transition-transform duration-300 md:sticky md:top-0 md:z-30 md:h-screen md:translate-x-0 lg:w-[288px] ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -62,7 +62,7 @@ function Sidebar({ open, onClose }) {
         </div>
 
         <div className="custom-scrollbar flex min-h-0 flex-1 flex-col justify-between overflow-y-auto px-4 py-7">
-          <nav aria-label="My account" className="custom-scrollbar flex-1 space-y-6 overflow-y-auto">
+          <nav aria-label="My account" className="custom-scrollbar min-h-0 flex-1 space-y-6 overflow-y-auto">
             {navigation.map(({ label, items }) => <div key={label} className="space-y-1.5"><p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-second">{label}</p>{items.map(([itemLabel, href, Icon, count]) => { const active = pathname === href; return <Link key={`${itemLabel}-${href}`} href={href} onClick={onClose} aria-current={active ? "page" : undefined} className={`group flex min-h-[43px] items-center justify-between rounded-[14px] px-4 text-[13px] font-medium transition-all ${active ? "bg-red text-white shadow-[0_8px_20px_rgba(214,0,28,0.16)]" : "text-second hover:bg-secondbg hover:text-head"}`}><span className="flex items-center gap-3"><Icon size={17} strokeWidth={active ? 2.1 : 1.8} />{itemLabel}</span>{count && <span className={`min-w-5 rounded-full px-1.5 py-1 text-center text-[10px] font-semibold ${active ? "bg-white/18 text-white" : "bg-secondbg text-second"}`}>{count}</span>}</Link>;})}</div>)}
           </nav>
 

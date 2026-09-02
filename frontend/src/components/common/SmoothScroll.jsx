@@ -92,6 +92,21 @@ export default function SmoothScroll({ children }) {
       lerpRef.current = lerp;
 
       function onWheel(e) {
+        // Let nested scroll containers (drawers, filters and sidebars) handle
+        // their own wheel input instead of routing it to the page scroller.
+        let node = e.target;
+        while (node && node !== document.body) {
+          if (node instanceof HTMLElement) {
+            const styles = window.getComputedStyle(node);
+            const canScroll = /(auto|scroll)/.test(styles.overflowY) && node.scrollHeight > node.clientHeight;
+            if (canScroll) {
+              const atTop = node.scrollTop <= 0;
+              const atBottom = node.scrollTop + node.clientHeight >= node.scrollHeight - 1;
+              if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) return;
+            }
+          }
+          node = node.parentElement;
+        }
         e.preventDefault();
         targetY.current += e.deltaY;
         const maxScroll = document.body.scrollHeight - window.innerHeight;

@@ -24,15 +24,15 @@ const ShopFilter = ({ isOpen, onClose }) => {
     <>
       <section className="">
         {isOpen && (
-          <div onClick={onClose} className="fixed inset-0 bg-black/30 z-40" />
+          <div onClick={onClose} className="fixed inset-0 z-[1000] bg-black/30" />
         )}
         <div
-          className={`fixed top-18.75 right-0 h-full w-full sm:w-80 md:w-90 lg:w-96 xl:w-105 2xl:w-105 bg-white shadow-lg z-50 transition-transform duration-300 flex flex-col ${
+          className={`fixed inset-y-0 right-0 z-[1001] flex h-dvh w-full flex-col bg-white shadow-lg transition-transform duration-300 sm:w-80 md:w-90 lg:w-96 xl:w-105 2xl:w-105 ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           {/* Sticky Header */}
-          <div className="sticky top-0 z-10 flex justify-between items-center bg-footer pt-8.25 pb-6.5 pl-6 sm:pl-8 md:pl-10 pr-6 sm:pr-8 md:pr-10 shrink-0">
+          <div className="sticky top-0 z-10 flex shrink-0 items-center justify-between border-b border-footer bg-footer px-6 pb-6 pt-6 sm:px-8 md:px-10">
             <h3 className="texts_16_medium text-head uppercase">Filter By</h3>
             <button onClick={onClose} className="text-head texts_16_medium cursor-pointer">
               <AiOutlineClose />

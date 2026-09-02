@@ -53,12 +53,12 @@ function AdminSidebar({ open, onClose }) {
   return (
     <>
       {open && <button aria-label="Close admin menu" onClick={onClose} className="fixed inset-0 z-40 bg-black/25 md:hidden" />}
-      <aside className={`fixed inset-y-0 left-0 z-50 flex w-[264px] flex-col border-r border-footer bg-white transition-transform md:sticky md:top-0 md:z-30 md:h-screen md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside className={`fixed inset-y-0 left-0 z-50 flex min-h-0 w-[264px] flex-col overflow-hidden border-r border-footer bg-white transition-transform md:sticky md:top-0 md:z-30 md:h-screen md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="flex h-[92px] items-center justify-between border-b border-footer px-7">
           <AdminLogo />
           <button onClick={onClose} aria-label="Close menu" className="rounded-xl p-2 text-second hover:bg-secondbg md:hidden"><X size={20} /></button>
         </div>
-        <nav aria-label="Admin workspace" className="custom-scrollbar flex-1 space-y-6 overflow-y-auto px-4 py-7">
+        <nav aria-label="Admin workspace" className="custom-scrollbar min-h-0 flex-1 space-y-6 overflow-y-auto px-4 py-7">
           {navigation.map(({ label, items }) => <div key={label} className="space-y-1.5"><p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-second">{label}</p>{items.map(([itemLabel, href, Icon]) => { const active = pathname === href; return <Link key={href} href={href} onClick={onClose} aria-current={active ? "page" : undefined} className={`flex min-h-[43px] items-center gap-3 rounded-[14px] px-4 text-[13px] font-medium transition-all ${active ? "bg-red text-white shadow-[0_8px_20px_rgba(214,0,28,0.16)]" : "text-second hover:bg-secondbg hover:text-head"}`}><Icon size={17} strokeWidth={active ? 2.1 : 1.8} />{itemLabel}</Link>;})}</div>)}
         </nav>
       </aside>
