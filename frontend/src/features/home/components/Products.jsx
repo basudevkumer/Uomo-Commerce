@@ -1,6 +1,6 @@
 "use client";
 import Product from "@/components/common/Product";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import Button from "@/components/common/Button";
 import Container from "@/components/common/Container";
@@ -8,16 +8,32 @@ import useAllProduct from "@/features/shop/hooks/useAllProduct";
 
 const Products = () => {
   const [filter, setFilter] = useState("all");
-  const { data, isLoading, isError } = useAllProduct(8);
-  const products = data?.products || [];
-  const getFiltered = () => {
-    if (filter === "all") return products;
-    if (filter === "newArrivals")
-      return products.filter((p) => p.rating >= 4.5);
-    if (filter === "bestSeller") return products.filter((p) => p.stock > 50);
-    if (filter === "toprating") return products.filter((p) => p.rating >= 4.8);
-    return products;
-  };
+  // Load enough products so a strict tab filter does not return an empty page.
+  const { data, isLoading, isError } = useAllProduct(30);
+
+  const filteredProducts = useMemo(() => {
+    const products = data?.products || [];
+    if (!products.length) return [];
+
+    const byRating = (a, b) => (b.rating || 0) - (a.rating || 0);
+    const byIdDescending = (a, b) => (b.id || 0) - (a.id || 0);
+
+    if (filter === "newArrivals") {
+      return [...products].sort(byIdDescending).slice(0, 8);
+    }
+
+    if (filter === "bestSeller") {
+      const inStock = products.filter((product) => (product.stock || 0) > 50);
+      return [...(inStock.length ? inStock : products)].sort(byRating).slice(0, 8);
+    }
+
+    if (filter === "toprating") {
+      const topRated = products.filter((product) => (product.rating || 0) >= 4.5);
+      return [...(topRated.length ? topRated : products)].sort(byRating).slice(0, 8);
+    }
+
+    return products.slice(0, 8);
+  }, [data?.products, filter]);
 
   const filters = [
     { key: "all", label: "ALL" },
@@ -65,7 +81,7 @@ const Products = () => {
             </div>
           ) : (
             <div className="mt-5.5 grid lg:grid-cols-4 grid-cols-2 justify-center md:gap-7.5 gap-3.5">
-              {getFiltered().map((product) => (
+              {filteredProducts.map((product) => (
                 <Product
                   key={product.id}
                   id={product.id}
@@ -84,6 +100,11 @@ const Products = () => {
                   }
                 />
               ))}
+              {!filteredProducts.length && (
+                <p className="col-span-full py-10 text-center text-second">
+                  No products found.
+                </p>
+              )}
             </div>
           )}
 
