@@ -12,20 +12,19 @@ const ReactCountdown = dynamic(() => import("react-countdown"), { ssr: false });
 const Countdown = () => {
   return (
     <>
-      <section className="bg-[#EBEBEB] lg:mt-25 mt-13">
+      <section className="mt-13 overflow-hidden bg-[#EBEBEB] lg:mt-25">
         <div
-          className="pt-10 lg:mx-15
-          bg-no-repeat bg-cover bg-center"
+          className="bg-no-repeat bg-cover bg-center py-12 sm:py-16 lg:mx-15 lg:py-18"
         >
           <Container>
             {/* Main div */}
-            <div className="flex items-center gap:20 lg:gap-50.5 h-full">
+            <div className="flex h-full flex-col gap-10 md:flex-row md:items-center md:justify-between md:gap-12 lg:gap-20">
 
               {/* Text Div — max-w-[699px] */}
-              <div className="max-w-174.75 w-full">
-                <div className="pb-6.25 lg:pb-29.75">
+              <div className="w-full max-w-174.75">
+                <div className="pb-8 sm:pb-12 lg:pb-29.75">
                   <div className="flex items-center gap-3.25">
-                    <div className="w-10 h-0.5 bg-second-red"></div>
+                    <div className="h-0.5 w-10 bg-second-red"></div>
                     <p className="texts_14_medium text-second-red">
                       DEAL OF THE WEEK
                     </p>
@@ -45,7 +44,7 @@ const Countdown = () => {
                 <ReactCountdown
                   date={new Date("2027-03-30T00:00:00")}
                   renderer={({ days, hours, minutes, seconds }) => (
-                    <div className="flex gap-5">
+                    <div className="flex flex-wrap items-start gap-x-3 gap-y-2 sm:gap-x-5">
                       <div>
                         <p className="font-jost font-normal lg:text-[30px] text-[18px] text-head leading-7.5">
                           {zeroPad(days)}
@@ -100,13 +99,14 @@ const Countdown = () => {
               </div>
 
               {/* Image Div — w-[426px] */}
-              <div className="hidden md:block w-106.5 min-w-106.5 h-full">
+              <div className="relative aspect-[4/5] w-full md:max-w-[426px] md:aspect-[3/4] md:w-[38%] lg:w-106.5 lg:min-w-105.5">
                 <CldImage
-                  src="countdown_nijyho"
-                  alt="Spring Collection"
+                  src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85"
+                  alt="Spring fashion collection"
                   width={426}
                   height={600}
-                  className="w-full h-full object-cover"
+                  priority
+                  className="h-full w-full object-cover object-center"
                 />
               </div>
 
