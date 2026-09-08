@@ -6,7 +6,7 @@ import allIcons from "@/constants/icons";
 import { RiArrowUpSLine } from "react-icons/ri";
 import Link from 'next/link';
 import CldImage from "@/components/common/CloudlessImage";
-import { paymentMethods } from "@/helpers/dummyData";
+import { paymentMethods, projectsAllImages } from "@/helpers/dummyData";
 const Footer = () => {
   const { socialIcons } = allIcons;
 
@@ -19,7 +19,7 @@ const Footer = () => {
           <div className="col-span-2  lg:flex-col md:flex md:justify-between md:items-start ">
             {/* Logo */}
             <CldImage
-              src="navicon_is7dpu"
+             src={projectsAllImages.logo}
               alt="footerlogo"
               width={400}
               height={800}

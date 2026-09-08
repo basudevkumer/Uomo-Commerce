@@ -16,6 +16,7 @@ import DrawerHeader from "./components/DrawerHeader";
 import DrawerSearch from "./components/DrawerSearch";
 import DrawerFooter from "./components/DrawerFooter";
 import DrawerTabRow from "./components/DrawerTabRow";
+import { projectsAllImages } from "@/helpers/dummyData";
 
 const { navIconItems } = allIcons;
 
@@ -192,7 +193,7 @@ const NavbarMobile = () => {
             </button>
 
             <CldImage
-              src="navicon_is7dpu"
+              src={projectsAllImages.logo}
               alt="Uomo logo"
               width={400}
               height={800}

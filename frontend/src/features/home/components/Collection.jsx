@@ -1,113 +1,120 @@
-"use client";
 import React from "react";
-import Button from "@/components/common/Button";
-import { useRouter } from "next/navigation";
-import CldImage from "@/components/common/CloudlessImage";
+import Link from "next/link";
+import Container from "@/components/common/Container";
 
-const CATEGORY_MAP = {
-  women: "womens-dresses",
-  men: "mens-shirts",
-  kids: "tops",
+const IMAGES = {
+  women:
+    "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85",
+  men: "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1200&q=85",
+  kids: "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&w=900&q=85",
 };
 
-const Collection = () => {
-  const router = useRouter();
+const ShopLink = ({ children }) => (
+  <span className="relative mt-2 inline-block text-[9px] font-medium uppercase leading-none tracking-wide text-[#222] after:absolute  after:-bottom-1 after:left-0 after:h-px after:w-full after:bg-white/80 sm:mt-3 sm:text-[11px] text-white/80">
+    {children}
+  </span>
+);
 
-  const handleCategoryClick = (category) => {
-    router.push(`/shop?category=${CATEGORY_MAP[category]}`);
-  };
+const Copy = ({ eyebrow, children, className = "" }) => (
+  <div className={`z-10 text-[#222] ${className}`}>
+    {eyebrow && (
+      <p className="mb-1 text-[8px] font-normal uppercase leading-none sm:text-[10px]">
+        {eyebrow}
+      </p>
+    )}
+    <h3 className="text-[18px] font-normal uppercase leading-none sm:text-[22px]">
+      {children}
+    </h3>
+  </div>
+);
 
-  return (
-    <>
-      <section className="lg:mt-25 mt-3.75 px-3.75 lg:px-0">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-3.75 lg:gap-7.5">
-            {/* Women Collection */}
-            <div className="relative group overflow-hidden cursor-pointer" onClick={() => handleCategoryClick("women")}>
-              <CldImage
-                src="womencollection_dhhu4y"
-                alt="Women Collection"
-                width={500}
-                height={700}
-                className="w-full object-cover"
+const Collection = () => (
+  <section className="mt-10 bg-white px-4 sm:mt-16 lg:mt-25 lg:px-0">
+    <Container>
+      <div className="grid grid-cols-1 gap-5 sm:gap-[30px] lg:h-[600px] lg:grid-cols-2 lg:gap-[30px]">
+        {/* Women collection */}
+        <Link
+          href="/shop?category=womens-dresses"
+          className="group relative block h-[370px] overflow-hidden bg-[#eef0f2] sm:h-[560px] lg:h-full"
+        >
+          <img
+            src={IMAGES.women}
+            alt="Women collection"
+            className="absolute inset-0 h-full w-full object-cover object-[center_28%] transition-transform duration-700 group-hover:scale-105"
+          />
+          <Copy
+            eyebrow="Hot list"
+            className="absolute text-white/80 bottom-5 left-5 sm:bottom-8 sm:left-8 lg:bottom-10 lg:left-10"
+          >
+            <span className="font-bold">Women</span> Collection
+            <span className="block ">
+              <ShopLink>Shop now</ShopLink>
+            </span>
+          </Copy>
+        </Link>
+
+        {/* Men + Kids + Gift cards */}
+        <div className="flex flex-col gap-5 sm:gap-[30px] lg:h-full lg:gap-[30px]">
+          <Link
+            href="/shop?category=mens-shirts"
+            className="group relative block h-[240px] overflow-hidden bg-[#e7e4df] sm:h-[280px] lg:h-[270px]"
+          >
+            <img
+              src={IMAGES.men}
+              alt="Men collection"
+              className="absolute inset-0 h-full w-full object-cover object-[center_22%] transition-transform duration-700 group-hover:scale-105"
+            />
+            <Copy className=" text-white/80 absolute left-5 top-1/2 -translate-y-1/2 sm:left-8 lg:left-10">
+              <span className="mb-2 block text-[8px] font-normal sm:text-[10px]">
+                HOT LIST
+              </span>
+              <span className="font-bold">Men</span> Collection
+              <span className="block">
+                <ShopLink>Shop now</ShopLink>
+              </span>
+            </Copy>
+          </Link>
+
+          <div className="grid h-auto grid-cols-1 gap-5 sm:h-[300px] sm:grid-cols-2 sm:gap-[30px] lg:h-[300px]">
+            <Link
+              href="/shop?category=tops"
+              className="group relative block min-h-[260px] overflow-hidden bg-[#eeeae6] sm:min-h-0"
+            >
+              <img
+                src={IMAGES.kids}
+                alt="Kids collection"
+                className="absolute inset-0 h-full w-full object-cover object-[center_22%] transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:bottom-10 lg:left-10">
-                <p className="texts_14_regular text-head text-[11px] sm:text-[14px]">HOT LIST</p>
-                <h3 className="text-head font-medium text-[16px] sm:text-[20px] lg:text-[26px] pb-1 leading-tight">
-                  <span className="font-bold">WOMEN</span> COLLECTION
-                </h3>
-                <Button className={"hover:after:w-12.5"} btnText={"SHOP NOW"} />
-              </div>
-            </div>
+              <Copy className=" text-white/80 absolute bottom-5 left-5 sm:bottom-8 sm:left-8 lg:bottom-10 lg:left-10">
+                <span className="mb-2 block text-[8px] font-normal sm:text-[10px]">
+                  HOT LIST
+                </span>
+                <span className="font-bold">Kids</span> Collection
+                <span className="block">
+                  <ShopLink>Shop now</ShopLink>
+                </span>
+              </Copy>
+            </Link>
 
-            {/* Right Column */}
-            <div className="flex flex-col gap-3.75 lg:gap-7.5">
-              {/* Men Collection */}
-              <div className="relative group overflow-hidden cursor-pointer" onClick={() => handleCategoryClick("men")}>
-                <CldImage
-                  src="mencollection_nr2nff"
-                  alt="Men Collection"
-                  width={500}
-                  height={300}
-                  className="w-full object-cover min-h-40 sm:min-h-50 lg:min-h-0"
-                />
-                <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:bottom-10 lg:left-10">
-                  <p className="texts_14_regular text-head text-[11px] sm:text-[14px]">HOT LIST</p>
-                  <h3 className="text-head font-medium text-[16px] sm:text-[20px] lg:text-[26px] pb-1 leading-tight">
-                    <span className="font-bold">MEN</span> COLLECTION
-                  </h3>
-                  <Button className={"hover:after:w-12.5"} btnText={"SHOP NOW"} />
-                </div>
-              </div>
-
-              {/* Kids + Gift Cards */}
-              <div className="grid grid-cols-2 gap-3.75 lg:gap-7.5">
-                {/* Kids Collection */}
-                <div className="relative group overflow-hidden cursor-pointer" onClick={() => handleCategoryClick("kids")}>
-                  <CldImage
-                    src="kidscollection_l4suvb"
-                    alt="Kids Collection"
-                    width={300}
-                    height={300}
-                    className="w-full object-cover"
-                  />
-                  <div className="absolute bottom-3 left-3 sm:bottom-6 sm:left-6 lg:bottom-10 lg:left-10">
-                    <p className="texts_14_regular text-head text-[10px] sm:text-[14px]">HOT LIST</p>
-                    <h3 className="text-head font-medium text-[13px] sm:text-[18px] lg:text-[26px] pb-1 leading-tight">
-                      <span className="font-bold">KIDS</span>{" "}
-                      <span className="hidden xs:inline">COLLECTION</span>
-                    </h3>
-                    <Button className={"hover:after:w-12.5"} btnText={"SHOP NOW"} />
-                  </div>
-                </div>
-
-                {/* E-Gift Cards */}
-                <div className="relative group overflow-hidden">
-                  <CldImage
-                    src="giftcard_dkzyq1"
-                    alt="E-Gift Cards"
-                    width={300}
-                    height={300}
-                    className="w-full object-cover"
-                  />
-                  <div className="absolute bottom-3 left-3 sm:bottom-6 sm:left-6 lg:bottom-10 lg:left-10">
-                    <h3 className="text-head font-medium text-[13px] sm:text-[18px] lg:text-[26px] pb-1 leading-tight">
-                      <span className="font-bold">E-GIFT</span>{" "}
-                      <span className="hidden xs:inline">CARDS</span>
-                    </h3>
-                    <p className="texts_14_regular text-head text-[10px] sm:text-[13px] lg:text-[14px] pt-1 pb-2 sm:pb-4 hidden sm:block w-full max-w-50">
-                      Surprise someone with the gift they really want.
-                    </p>
-                    <Button className={"hover:after:w-12.5"} btnText={"DISCOVER MORE"} />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Link
+              href="/shop?category=gift-cards"
+              className="relative block min-h-[260px] overflow-hidden bg-[#f5e9e4] sm:min-h-0"
+            >
+              <Copy className="absolute left-5 top-1/2 max-w-[220px] -translate-y-1/2 sm:left-8 lg:left-10">
+                <span className="font-bold">E-gift</span> Cards
+                <p className="mt-3 max-w-[190px] text-[9px] normal-case leading-[1.45] sm:text-[11px]">
+                  Surprise someone with the gift they really want.
+                </p>
+                <span className="block">
+                  <ShopLink>Discover more</ShopLink>
+                </span>
+              </Copy>
+            </Link>
           </div>
         </div>
-      </section>
-    </>
-  );
-};
+      </div>
+    </Container>
+  </section>
+);
 
 export default Collection;

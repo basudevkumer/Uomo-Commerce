@@ -27,18 +27,56 @@ export const demoImageUrls = [
 
 export const paymentMethods = [
   { id: "visa", name: "Visa", logo: "https://cdn.simpleicons.org/visa/1a1f71" },
-  { id: "mastercard", name: "Mastercard", logo: "https://cdn.simpleicons.org/mastercard/eb001b" },
-  { id: "bkash", name: "bKash", logo: "https://cdn.simpleicons.org/bkash/e2136e" },
-  { id: "nagad", name: "Nagad", logo: "https://cdn.simpleicons.org/nagad/f15a24" },
-  { id: "paypal", name: "PayPal", logo: "https://cdn.simpleicons.org/paypal/00457c" },
-  { id: "google-pay", name: "Google Pay", logo: "https://cdn.simpleicons.org/googlepay/4285f4" },
-  { id: "apple-pay", name: "Apple Pay", logo: "https://cdn.simpleicons.org/applepay/000000" },
-  { id: "american-express", name: "American Express", logo: "https://cdn.simpleicons.org/americanexpress/2e77bc" },
-  { id: "discover", name: "Discover", logo: "https://cdn.simpleicons.org/discover/ff6000" },
+  {
+    id: "mastercard",
+    name: "Mastercard",
+    logo: "https://cdn.simpleicons.org/mastercard/eb001b",
+  },
+  {
+    id: "bkash",
+    name: "bKash",
+    logo: "https://cdn.simpleicons.org/bkash/e2136e",
+  },
+  {
+    id: "nagad",
+    name: "Nagad",
+    logo: "https://cdn.simpleicons.org/nagad/f15a24",
+  },
+  {
+    id: "paypal",
+    name: "PayPal",
+    logo: "https://cdn.simpleicons.org/paypal/00457c",
+  },
+  {
+    id: "google-pay",
+    name: "Google Pay",
+    logo: "https://cdn.simpleicons.org/googlepay/4285f4",
+  },
+  {
+    id: "apple-pay",
+    name: "Apple Pay",
+    logo: "https://cdn.simpleicons.org/applepay/000000",
+  },
+  {
+    id: "american-express",
+    name: "American Express",
+    logo: "https://cdn.simpleicons.org/americanexpress/2e77bc",
+  },
+  {
+    id: "discover",
+    name: "Discover",
+    logo: "https://cdn.simpleicons.org/discover/ff6000",
+  },
 ];
 
 export const getDemoImageUrl = (source) => {
-  if (typeof source === "string" && (source.startsWith("http") || source.startsWith("/") || source.startsWith("blob:") || source.startsWith("data:"))) {
+  if (
+    typeof source === "string" &&
+    (source.startsWith("http") ||
+      source.startsWith("/") ||
+      source.startsWith("blob:") ||
+      source.startsWith("data:"))
+  ) {
     return source;
   }
 
@@ -73,7 +111,9 @@ export const getDemoUsers = () => [
 
 export const authenticateDemoUser = (email, password) => {
   const user = getDemoUsers().find(
-    (item) => item.email.toLowerCase() === email.trim().toLowerCase() && item.password === password,
+    (item) =>
+      item.email.toLowerCase() === email.trim().toLowerCase() &&
+      item.password === password,
   );
 
   return user ? publicUser(user) : null;
@@ -94,7 +134,10 @@ export const registerDemoUser = ({ displayName, email, password }) => {
     password,
   };
 
-  setStoredItems(USERS_STORAGE_KEY, [...getStoredItems(USERS_STORAGE_KEY), user]);
+  setStoredItems(USERS_STORAGE_KEY, [
+    ...getStoredItems(USERS_STORAGE_KEY),
+    user,
+  ]);
   return { user: publicUser(user) };
 };
 
@@ -108,6 +151,12 @@ export const saveNewsletterSubscription = (email) => {
       { email: normalizedEmail, subscribedAt: new Date().toISOString() },
     ]);
   }
+};
+
+// for general purposes to use projects all images in one place, so that if we want to change any image, we can change it from here and it will be reflected in all places where it's used.
+
+export const projectsAllImages = {
+  logo: "https://res.cloudinary.com/cjygzzko/image/upload/v1788880057/logo_1.webp",
 };
 
 export { DEMO_USERS };

@@ -17,6 +17,7 @@ import ShopMegaMenu from "./components/ShopMegaMenu";
 import PagesDropdown from "./components/PagesDropdown";
 import NavIcons from "./components/NavIcons";
 import CldImage from "@/components/common/CloudlessImage";
+import { projectsAllImages } from "@/helpers/dummyData";
 const NavbarLg = () => {
   const [hoverItem, setHoverItem] = useState(null);
 
@@ -28,7 +29,7 @@ const NavbarLg = () => {
           <div className="flex items-center gap-x-14">
             <Link href="/">
               <CldImage
-                src="navicon_is7dpu"
+                src= {projectsAllImages.logo}
                 alt="uomo-logo"
                 width={400}
                 height={800}
