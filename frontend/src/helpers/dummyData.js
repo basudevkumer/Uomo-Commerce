@@ -35,12 +35,12 @@ export const paymentMethods = [
   {
     id: "bkash",
     name: "bKash",
-    logo: "https://cdn.simpleicons.org/bkash/e2136e",
+    logo: "https://i.pinimg.com/736x/8a/d9/e2/8ad9e26626fa6621d8ee43bb5856bcd6.jpg",
   },
   {
     id: "nagad",
     name: "Nagad",
-    logo: "https://cdn.simpleicons.org/nagad/f15a24",
+    logo: "https://i.pinimg.com/1200x/bd/be/2d/bdbe2d745a0bb1e1c8be0de3c4431dba.jpg",
   },
   {
     id: "paypal",

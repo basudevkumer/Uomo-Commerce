@@ -1,5 +1,5 @@
 'use client';
-import React from "react";
+import React, { useState } from "react";
 import Container from "./Container";
 import { footerData } from "@/data/projectData";
 import allIcons from "@/constants/icons";
@@ -7,6 +7,29 @@ import { RiArrowUpSLine } from "react-icons/ri";
 import Link from 'next/link';
 import CldImage from "@/components/common/CloudlessImage";
 import { paymentMethods, projectsAllImages } from "@/helpers/dummyData";
+
+const PaymentLogo = ({ method }) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return (
+      <span className="text-center text-[10px] font-semibold leading-tight text-head">
+        {method.name}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={method.logo}
+      alt={`${method.name} payment logo`}
+      className="h-full w-full object-contain"
+      loading="lazy"
+      onError={() => setHasError(true)}
+    />
+  );
+};
+
 const Footer = () => {
   const { socialIcons } = allIcons;
 
@@ -147,12 +170,7 @@ const Footer = () => {
                   className="flex h-10 w-[60px] shrink-0 items-center justify-center rounded border border-[#d9d9d9] bg-white p-2 shadow-sm transition-transform hover:-translate-y-0.5"
                   title={method.name}
                 >
-                  <img
-                    src={method.logo}
-                    alt={method.name}
-                    className="h-full w-full object-contain"
-                    loading="lazy"
-                  />
+                  <PaymentLogo method={method} />
                 </div>
               ))}
             </div>
