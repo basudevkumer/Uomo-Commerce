@@ -1,10 +1,10 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import Container from "./Container";
 import { footerData } from "@/data/projectData";
 import allIcons from "@/constants/icons";
 import { RiArrowUpSLine } from "react-icons/ri";
-import Link from 'next/link';
+import Link from "next/link";
 import CldImage from "@/components/common/CloudlessImage";
 import { paymentMethods, projectsAllImages } from "@/helpers/dummyData";
 
@@ -42,7 +42,7 @@ const Footer = () => {
           <div className="col-span-2  lg:flex-col md:flex md:justify-between md:items-start ">
             {/* Logo */}
             <CldImage
-             src={projectsAllImages.logo}
+              src={projectsAllImages.logo}
               alt="footerlogo"
               width={400}
               height={800}
@@ -110,7 +110,7 @@ const Footer = () => {
                     <li key={item.id} className="relative group w-fit">
                       <Link
                         href={item.link}
-                        className={`texts_14_regular text-head leading-10!`}
+                        className="texts_14_regular text-head leading-10! relative inline-block after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-head after:content-[''] after:transition-all after:duration-500 after:ease-in-out hover:after:w-1/2   "
                       >
                         {item.name}
                       </Link>
@@ -163,7 +163,10 @@ const Footer = () => {
             >
               Secure payments
             </p>
-            <div className="flex flex-wrap items-center gap-2.5" aria-label="Accepted payment methods">
+            <div
+              className="flex flex-wrap items-center gap-2.5"
+              aria-label="Accepted payment methods"
+            >
               {paymentMethods.map((method) => (
                 <div
                   key={method.id}

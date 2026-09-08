@@ -144,6 +144,7 @@ const LimitedEdition = () => {
               swiper.params.navigation.prevEl = prevRef.current;
               swiper.params.navigation.nextEl = nextRef.current;
             }}
+            className="!py-4 "
           >
             {products.map((product) => (
               <SwiperSlide key={product.id}>
