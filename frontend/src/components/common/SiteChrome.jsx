@@ -16,7 +16,8 @@ export default function SiteChrome({ children }) {
   return (
     <>
       <Navbar />
-      {children}
+      {/* Keep public content below the fixed storefront navbar. */}
+      <div className="pt-[70px] lg:pt-[85px]">{children}</div>
       <Footer />
     </>
   );
