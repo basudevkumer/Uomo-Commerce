@@ -3,12 +3,31 @@ import Container from "@/components/common/Container";
 import FeaturedProducts from "@/components/common/FeaturedProducts";
 import React from "react";
 import Images from "@/components/common/Images";
-import Button from "@/components/common/Button";
 import useAllProduct from "@/features/shop/hooks/useAllProduct";
 
 const LookBook = () => {
-  const { data, isLoading, isError } = useAllProduct(6, 60);
-  const products = data?.products || [];
+  const pageSize = 6;
+  const initialSkip = 60;
+  const [skip, setSkip] = React.useState(initialSkip);
+  const [products, setProducts] = React.useState([]);
+  const { data, isLoading, isFetching, isError } = useAllProduct(pageSize, skip);
+
+  React.useEffect(() => {
+    if (!data?.products || isFetching || data.skip !== skip) return;
+
+    setProducts((previousProducts) =>
+      skip === initialSkip
+        ? data.products
+        : [...previousProducts, ...data.products],
+    );
+  }, [data, initialSkip, isFetching, skip]);
+
+  const total = data?.total || 0;
+  const hasMore = skip + (data?.products?.length || 0) < total;
+
+  const handleLoadMore = () => {
+    if (!isFetching && hasMore) setSkip((currentSkip) => currentSkip + pageSize);
+  };
 
   if (isLoading) {
     return (
@@ -98,10 +117,30 @@ const LookBook = () => {
           </div>
         </div>
 
-        <Button
-          className="left-1/2 -translate-x-1/2 mt-12.5 mb-15 lg:mb-24.75 relative after:absolute after:bottom-0 after:left-0 after:contant-[''] after:bg-head after:w-15 after:h-0.5"
-          btnText="SHOW MORE"
-        />
+        {products.length > pageSize && (
+          <div className="mt-7.5 grid grid-cols-1 gap-7.5 sm:grid-cols-2">
+            {products.slice(pageSize).map((product) => (
+              <FeaturedProducts
+                key={product.id}
+                imgSrc={product.thumbnail}
+                imgAlt={product.title}
+                price={`STARTING AT $${product.price}`}
+                category={product.title}
+              />
+            ))}
+          </div>
+        )}
+
+        {hasMore && (
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            disabled={isFetching}
+            className="texts_14_medium relative left-1/2 mt-12.5 mb-15 -translate-x-1/2 cursor-pointer text-head transition-opacity after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-15 after:bg-head after:transition-all hover:after:w-full disabled:cursor-wait disabled:opacity-50 lg:mb-24.75"
+          >
+            {isFetching ? "LOADING..." : "SHOW MORE"}
+          </button>
+        )}
       </Container>
     </section>
   );
