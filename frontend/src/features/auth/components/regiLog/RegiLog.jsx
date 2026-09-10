@@ -400,17 +400,17 @@ const RegiLog = () => {
   if (showLoginModal) {
     return (
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+        className="fixed inset-0 !z-[99999] flex items-center justify-center bg-black/50"
         onClick={(e) => {
           if (e.target === e.currentTarget) closeLoginModal();
         }}
       >
-        <div className="bg-white w-full max-w-md max-h-[90vh] overflow-y-auto relative py-10">
+        <div className="bg-white w-full max-w-md max-h-[90vh]  overflow-y-auto relative py-10">
           <button
             onClick={closeLoginModal}
             className="absolute top-4 right-4 text-gray-400 hover:text-black text-xl z-10 cursor-pointer"
           >
-            <IoMdClose/>
+            <IoMdClose />
           </button>
           {formContent}
         </div>
