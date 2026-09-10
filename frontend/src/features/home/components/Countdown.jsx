@@ -22,7 +22,7 @@ const Countdown = () => {
 
               {/* Text Div — max-w-[699px] */}
               <div className="w-full max-w-174.75">
-                <div className="pb-8 sm:pb-12 lg:pb-29.75">
+                <div className="pb-8 sm:pb-12 lg:pb-25">
                   <div className="flex items-center gap-3.25">
                     <div className="h-0.5 w-10 bg-second-red"></div>
                     <p className="texts_14_medium text-second-red">
