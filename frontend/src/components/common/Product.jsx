@@ -62,10 +62,10 @@ const Product = ({
   return (
     <>
       <div
-        className="lg:w-82.5 w-full relative group cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 rounded-sm"
+        className="group relative flex h-full w-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-sm shadow-sm transition-all duration-300 hover:shadow-md"
         onClick={() => router.push(`/shop/${id}`)}
       >
-        <div className="relative overflow-hidden aspect-square bg-[#F5F5F5]">
+        <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-[#F5F5F5]">
           <Images
             className={"w-full h-full object-contain"}
             imgSrc={imgSrc}
@@ -82,9 +82,11 @@ const Product = ({
         </div>
 
         {/* Product details */}
-        <div className="mt-3.5 p-3">
-          <div className="flex justify-between items-center">
-            <p className="texts_14_regular text-second">{catagory}</p>
+        <div className="mt-3.5 flex h-36 shrink-0 flex-col p-3">
+          <div className="flex min-w-0 items-center justify-between gap-2">
+            <p className="texts_14_regular min-w-0 truncate text-second">
+              {catagory}
+            </p>
 
             <div onClick={handleWishlist} className="cursor-pointer">
               {isLiked ? (
@@ -94,10 +96,10 @@ const Product = ({
               )}
             </div>
           </div>
-          <p className="texts_16_regular text-head pt-0.5 line-clamp-2">
+          <p className="h-12 overflow-hidden texts_16_regular text-head pt-0.5 line-clamp-2">
             {itemName}
           </p>
-          <div className="flex gap-2 items-center">
+          <div className="mt-auto flex min-h-6 items-center gap-2">
             {discountPrice ? (
               <>
                 <p className="texts_16_regular text-second line-through">

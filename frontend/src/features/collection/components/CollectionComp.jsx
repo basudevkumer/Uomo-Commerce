@@ -1,74 +1,46 @@
 "use client";
+
 import React from "react";
+import Image from "next/image";
+import { FiAward, FiEdit3, FiStar, FiTag, FiTrendingUp, FiZap } from "react-icons/fi";
 import Container from "@/components/common/Container";
 import CollectionSlider from "@/components/common/CollectionSlider";
 
+const COLLECTIONS = [
+  { title: "Featured Offers", subtitle: "Curated value picks", icon: <FiTag />, skip: 0, direction: "ltr" },
+  { title: "Top Rated Edit", subtitle: "Loved by our community", icon: <FiStar />, skip: 20, direction: "rtl" },
+  { title: "New Arrivals", subtitle: "Fresh from the collection", icon: <FiTrendingUp />, skip: 40, direction: "ltr" },
+  { title: "Bestseller Edit", subtitle: "The pieces everyone wants", icon: <FiAward />, skip: 60, direction: "rtl" },
+  { title: "Limited-Time Edit", subtitle: "Special styles, limited run", icon: <FiZap />, skip: 80, direction: "ltr" },
+  { title: "Editor's Selection", subtitle: "Handpicked for your wardrobe", icon: <FiEdit3 />, skip: 100, direction: "rtl" },
+];
+
 const CollectionComp = () => {
   return (
-    <section className="pt-21.25 py-12.5 lg:py-25 ">
+    <section className="">
+      <div className="relative aspect-[3/1] w-full overflow-hidden bg-[#f4f4f4] shadow-[0_12px_30px_rgba(0,0,0,0.06)]">
+        <Image
+          src="https://res.cloudinary.com/ixgslen6/image/upload/v1789079164/ChatGPT_Image_Sep_11_2026_04_22_27_AM.webp"
+          alt="Uomo collection — discover timeless elegance"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
+
       <Container>
-        <div>
-          <div>
-            <h1 className="head_70_bold  text-head text-center">
-              Discover Timeless Elegance
-            </h1>
-            <p className="text-second mx-auto text-center max-w-175  texts_16_regular mt-5 lg:mt-7">
-              Explore our curated collection of premium menswear designed for
-              the contemporary gentleman. From tailored classics to modern
-              essentials, each piece is crafted with attention to detail and
-              uncompromising quality. Elevate your style with uomo-ui.
-            </p>
-          </div>
-          <div className="pt-15 lg:pt-25 space-y-10 lg:space-y-25">
-            <div>
-              <CollectionSlider
-                collectionHeading={"Hot Deals"}
-                prevButton={"prev-hot-deal-button"}
-                nextButton={"next-hot-deal-button"}
-                skip={0}
-              />
-            </div>
-            <div>
-              <CollectionSlider
-                collectionHeading={"Top Rated"}
-                prevButton={"prev-top-rated-button"}
-                nextButton={"next-top-rated-button"}
-                skip={20}
-              />
-            </div>
-            <div>
-              <CollectionSlider
-                collectionHeading={"New Arrivals"}
-                prevButton={"prev-new-arrivals-button"}
-                nextButton={"next-new-arrivals-button"}
-                skip={40}
-              />
-            </div>
-            <div>
-              <CollectionSlider
-                collectionHeading={"Best Sellers"}
-                prevButton={"prev-best-sellers-button"}
-                nextButton={"next-best-sellers-button"}
-                skip={60}
-              />
-            </div>
-            <div>
-              <CollectionSlider
-                collectionHeading={"Flash Sale"}
-                prevButton={"prev-flash-sale-button"}
-                nextButton={"next-flah-sale-button"}
-                skip={80}
-              />
-            </div>
-            <div>
-              <CollectionSlider
-                collectionHeading={"Editor's Pick"}
-                prevButton={"prev-editors-pick-button"}
-                nextButton={"next-editors-pick-button"}
-                skip={100}
-              />
-            </div>
-          </div>
+        <div className="space-y-10 pt-12 sm:pt-16 lg:space-y-25 lg:pt-20">
+          {COLLECTIONS.map((collection) => (
+            <CollectionSlider
+              key={collection.title}
+              collectionHeading={collection.title}
+              collectionSubtitle={collection.subtitle}
+              collectionIcon={collection.icon}
+              skip={collection.skip}
+              direction={collection.direction}
+            />
+          ))}
         </div>
       </Container>
     </section>
