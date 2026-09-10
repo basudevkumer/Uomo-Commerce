@@ -1,8 +1,8 @@
-'use client';
+"use client";
 import React from "react";
 import NavbarLg from "./NavbarLg";
 import NavbarMobile from "./NavbarMobile";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import allImages from "@/constants/assets";
 
 const Navbar = () => {
@@ -23,7 +23,9 @@ const Navbar = () => {
       >
         <NavbarLg />
       </div>
-      <div className={`lg:hidden block bg-white shadow-[0_4px_24px_rgba(0,0,0,0.12)]`}>
+      <div
+        className={`lg:hidden block bg-white shadow-[0_4px_24px_rgba(0,0,0,0.12)]`}
+      >
         <NavbarMobile />
       </div>
     </div>

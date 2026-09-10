@@ -103,7 +103,12 @@ const NavIcons = () => {
         if (item.name === "Wishlist")
           return (
             <li key={item.id}>
-              <Link href={item.link} className="relative text-[22px] text-head">
+              <Link
+                href="/dashboard/wishlist"
+                onClick={() => setOpen(null)}
+                aria-label={`Open wishlist${wishlistCount ? ` (${wishlistCount} items)` : ""}`}
+                className="relative text-[22px] text-head"
+              >
                 {wishlistCount > 0 && (
                   <span className="absolute bg-third w-4.75 h-4.75 flex items-center justify-center text-xs font-medium text-white rounded-full -bottom-2.5 -right-2!">
                     {wishlistCount}
@@ -244,19 +249,30 @@ const NavIcons = () => {
             {/* ── Account Login/Register Sidebar ── */}
             {isActive && item.name === "Account" && (
               <div
-                className="absolute z-999 bg-head h-screen w-full top-0 left-0"
-                onClick={stopProp}
+                className="fixed inset-0 z-[1001] bg-black/50"
+                onClick={() => setOpen(null)}
               >
-                <div className="h-full absolute right-0 flex flex-col">
-                  <div className="flex bg-white border-b border-footer">
+                <div
+                  className="absolute right-0 top-0 flex h-dvh w-full max-w-[420px] flex-col bg-white shadow-2xl"
+                  onClick={stopProp}
+                >
+                  <div className="flex shrink-0 border-b border-footer bg-white">
                     <button
-                      onClick={() => setAuthTab("login")}
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setAuthTab("login");
+                      }}
                       className={`flex-1 py-4 texts_14_medium tracking-widest transition-colors ${authTab === "login" ? "text-head border-b-2 border-head" : "text-second"}`}
                     >
                       LOGIN
                     </button>
                     <button
-                      onClick={() => setAuthTab("register")}
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setAuthTab("register");
+                      }}
                       className={`flex-1 py-4 texts_14_medium tracking-widest transition-colors ${authTab === "register" ? "text-head border-b-2 border-head" : "text-second"}`}
                     >
                       REGISTER

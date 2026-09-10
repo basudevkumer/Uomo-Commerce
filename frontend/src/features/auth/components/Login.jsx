@@ -2,7 +2,7 @@
 import allIcons from "@/constants/icons";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { authenticateDemoUser } from "@/helpers/dummyData";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuthStore from "@/store/authSlice";
@@ -12,19 +12,6 @@ const Login = ({ unMount }) => {
   const router = useRouter();
   const { setUser } = useAuthStore();
   //Containe er bahire click korle e cole jabe
-  const navtabRef = useRef(null);
-  useEffect(() => {
-    const handleDocumentClick = (event) => {
-      if (navtabRef.current && !navtabRef.current.contains(event.target)) {
-        unMount(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleDocumentClick);
-    return () => {
-      document.removeEventListener("mousedown", handleDocumentClick);
-    };
-  }, [unMount]);
   // ══ STATE ══
   const [remember, setRemember] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -65,7 +52,7 @@ const Login = ({ unMount }) => {
   };
 
   return (
-    <div ref={navtabRef} className="w-105 h-full bg-white p-10">
+    <div className="h-full w-full overflow-y-auto bg-white p-6 sm:w-105 sm:p-10">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <p className="texts_16_medium text-head">LOGIN</p>
