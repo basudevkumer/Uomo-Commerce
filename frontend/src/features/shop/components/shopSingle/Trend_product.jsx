@@ -2,23 +2,24 @@
 import Container from "@/components/common/Container";
 import Product from "@/components/common/Product";
 import useAllProduct from "@/features/shop/hooks/useAllProduct";
+import TrendProductSkeleton from "./TrendProductSkeleton";
 
 const Trend_product = ({ category, currentId }) => {
-  const { data, isLoading } = useAllProduct(8, 0, "", category);
+  const { data, isLoading, isFetching, isError } = useAllProduct(8, 0, "", category);
   const products =
     data?.products?.filter((p) => p.id !== currentId).slice(0, 4) || [];
-  // category na thakle render hobe na
-  if (!category || isLoading) return null;
 
-  if (products.length === 0) return null;
+  if (!category) return null;
+  if (isLoading || isFetching) return <TrendProductSkeleton />;
+  if (isError || products.length === 0) return null;
 
   return (
-    <div className="mt-9.5 hidden lg:block">
+    <section className="mt-9.5 pb-10 lg:pb-0">
       <Container>
         <h3 className="head_26_regular text-head">
           RELATED <span className="head_26_bold">PRODUCTS</span>
         </h3>
-        <div className="mt-8.5 flex gap-x-7.5">
+        <div className="mt-8.5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-4 lg:gap-7.5">
           {products.map((p) => (
             <Product
               key={p.id}
@@ -38,7 +39,7 @@ const Trend_product = ({ category, currentId }) => {
           ))}
         </div>
       </Container>
-    </div>
+    </section>
   );
 };
 

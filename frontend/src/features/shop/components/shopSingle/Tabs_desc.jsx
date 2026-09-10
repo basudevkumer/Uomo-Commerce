@@ -47,7 +47,7 @@ const Tabs_desc = () => {
           REVIEWS (3)
         </button>
       </div>
-      <div className={"px-4 md:px-20 xl:px-60 mt-8 md:mt-10 lg:mt-12.5"}>
+      <div className={"px-4 md:px-20 xl:px-60 mt-8 md:mt-10 lg:mt-12.5 mb-5"}>
         <Container>
           {/* DESCRIPTION CONTENT */}
           {activeTab === "description" && (
