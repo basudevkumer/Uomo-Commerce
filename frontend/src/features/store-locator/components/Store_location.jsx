@@ -6,7 +6,7 @@ import { IoClose } from "react-icons/io5";
 
 const Store_location = () => {
   return (
-    <div className="mt-20 lg:my-[96px] pt-[55px]">
+    <div className=" my-[50px] ">
       <Container>
         <h3 className="text-2xl font-bold lg:head_35_bold text-head uppercase">
           Store Locator
