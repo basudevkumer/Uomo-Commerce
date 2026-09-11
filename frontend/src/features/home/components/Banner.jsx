@@ -14,23 +14,39 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import Image from "next/image";
 
-const sliderData = [
-  { id: 1, img: "bannerRightImg_fcjrx7" },
-  { id: 2, img: "bannerRightImg2_dpzohr" },
-  { id: 3, img: "bannerRightImg3_fqa6c9" },
-  { id: 4, img: "bannerRightImg4_xy5i2o" },
-  { id: 5, img: "bannerRightImg5_x4vfka" },
-];
-
 const BG_URL =
   "https://res.cloudinary.com/dlqvctrgm/image/upload/q_auto/f_auto/v1775147827/bannerBg_waubaz.png";
+
+const sliderData = [
+  {
+    id: 1,
+    img: "https://res.cloudinary.com/ixgslen6/image/upload/v1789140997/ChatGPT_Image_Sep_11_2026_09_32_32_PM.webp",
+    trend: "NEW TREND",
+    title: "SUMMER SALE STYLISH",
+    highlight: "WOMENS",
+  },
+  {
+    id: 2,
+    img: "https://res.cloudinary.com/ixgslen6/image/upload/v1789141182/ChatGPT_Image_Sep_11_2026_09_39_03_PM.webp",
+    trend: "NEW ARRIVALS",
+    title: "ELEVATE YOUR STYLE",
+    highlight: "EVERYDAY",
+  },
+  {
+    id: 3,
+    img: "https://res.cloudinary.com/ixgslen6/image/upload/v1789141685/ChatGPT_Image_Sep_11_2026_09_47_24_PM.webp",
+    trend: "EXCLUSIVE OFFER",
+    title: "TIMELESS FASHION",
+    highlight: "FOR YOU",
+  },
+];
 
 const Banner = () => {
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="mt-22.5 overflow-hidden">
+    <section className=" overflow-hidden">
       <div className="lg:mx-15 mx-0 relative">
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -73,34 +89,33 @@ const Banner = () => {
 
                 {/* Left Content */}
                 <div className="container px-4 sm:px-7.5 xl:px-0 h-full relative">
-                  <div className="leftContent absolute z-10 bottom-12 sm:bottom-20 lg:bottom-auto lg:top-[50%] lg:-translate-y-[10%] left-4 sm:left-7.5 xl:left-0 w-[52%] sm:w-[50%] lg:w-[45%]">
+                  <div className="leftContent absolute z-10 bottom-12 sm:bottom-20 lg:bottom-auto lg:top-[50%] lg:-translate-y-[10%] left-4 sm:left-7.5 xl:left-0 w-[52%] sm:w-[50%] lg:w-[45%] text-white">
                     <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="w-6 sm:w-10 h-0.5 bg-second-red"></div>
-                      <p className="texts_14_medium text-second-red text-[10px] sm:text-[12px] lg:text-[14px]">
-                        NEW TREND
+                      <div className="w-6 sm:w-10 h-0.5 bg-white"></div>
+                      <p className="texts_14_medium text-white text-[10px] sm:text-[12px] lg:text-[14px]">
+                        {item.trend}
                       </p>
                     </div>
 
                     {/* Desktop heading */}
-                    <h1 className="head_70_regular pb-2 text-head hidden lg:block">
+                    <h1 className="head_70_regular pb-2 text-white hidden lg:block">
                       <span className="whitespace-nowrap">
                         {" "}
-                        SUMMER SALE STYLISH
+                        {item.title}
                       </span>
-                      <span className="head_70_bold block">WOMENS</span>
+                      <span className="head_70_bold block">{item.highlight}</span>
                     </h1>
 
                     {/* Mobile heading */}
-                    <h1 className="head_70_regular pb-2 text-head block lg:hidden">
-                      <span className="whitespace-nowrap"> SUMMER SALE</span>
+                    <h1 className="head_70_regular pb-2 text-white block lg:hidden">
+                      <span className="whitespace-nowrap"> {item.title}</span>
                       <span className="block whitespace-nowrap">
-                        <span> STYLISH </span>
-                        <span className="head_70_bold">WOMENS</span>
+                        <span className="head_70_bold">{item.highlight}</span>
                       </span>
                     </h1>
 
                     <Button
-                      className={"hover:after:w-24"}
+                      className={" !text-white after:bg-white hover:after:w-24"}
                       btnText={"DISCOVER MORE"}
                     />
 
@@ -115,12 +130,12 @@ const Banner = () => {
                           <div
                             className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                               activeIndex === index
-                                ? "bg-black"
-                                : "bg-[#DDC2B9] group-hover:bg-black"
+                                ? "bg-white"
+                                : "bg-white/60 group-hover:bg-white"
                             }`}
                           ></div>
                           <div
-                            className={`absolute inset-0 border-2 border-black rounded-full transition-all duration-300 ${
+                            className={`absolute inset-0 border-2 border-white rounded-full transition-all duration-300 ${
                               activeIndex === index
                                 ? "scale-100"
                                 : "scale-0 group-hover:scale-100"
@@ -140,16 +155,16 @@ const Banner = () => {
         <div className="absolute top-1/2 -left-10 -translate-y-[50%] hidden lg:block">
           <div className="flex flex-col gap-y-6.25 z-10">
             <Link href="#">
-              <FaFacebookF className="text-second" size={15}/>
+              <FaFacebookF className="text-second" size={15} />
             </Link>
             <Link href="#">
-              <FaTwitter className="text-second" size={15}/>
+              <FaTwitter className="text-second" size={15} />
             </Link>
             <Link href="#">
-              <FaInstagram className="text-second" size={15}/>
+              <FaInstagram className="text-second" size={15} />
             </Link>
             <Link href="#">
-              <FaPinterest className="text-second" size={15}/>
+              <FaPinterest className="text-second" size={15} />
             </Link>
             <Link href="#">
               <p className="texts_14_medium text-second rotate-270 -ml-7.75 mt-6.5">
