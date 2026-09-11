@@ -56,7 +56,7 @@ const brands = [
 
 const About = () => {
   return (
-    <section className="">
+    <section className="w-full max-w-full overflow-x-hidden">
       <div >
         <Container>
           {/* Page Title */}
@@ -68,7 +68,7 @@ const About = () => {
         </Container>
 
         {/* Full-width banner intentionally sits outside Container */}
-        <div className="relative left-1/2 w-screen max-h-[420px] -translate-x-1/2 overflow-hidden bg-[#d0d0d0] sm:max-h-[500px] lg:max-h-[560px]">
+        <div className="w-full max-h-[420px] overflow-hidden bg-[#d0d0d0] sm:max-h-[500px] lg:max-h-[560px]">
           <CldImage
             src="https://res.cloudinary.com/ixgslen6/image/upload/v1789083603/ChatGPT_Image_Sep_11_2026_05_39_13_AM.webp"
             alt="Uomo fashion collection"
@@ -127,10 +127,10 @@ const About = () => {
           </div>
 
           {/* Mid Section - Image + Company Text */}
-          <div className="mx-auto w-full max-w-292.5">
+          <div className="mx-auto w-full min-w-0 max-w-292.5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-11.25 items-center mt-6 sm:mt-8 lg:mt-10 xl:mt-0 mb-8 sm:mb-10 lg:mb-16 xl:mb-25">
               {/* Mid Image */}
-              <div className="w-full bg-[#d0d0d0] overflow-hidden relative rounded-sm">
+              <div className="w-full min-w-0 overflow-hidden rounded-sm bg-[#d0d0d0]">
                 <CldImage
                   src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=85"
                   alt="Uomo seasonal fashion edit"
@@ -143,7 +143,7 @@ const About = () => {
               </div>
 
               {/* Company Text */}
-              <div>
+              <div className="min-w-0">
                 <h3 className="text-[13px] sm:text-[15px] lg:text-[15px] xl:text-[16px] font-medium tracking-[0%] text-[rgb(118,118,118)] mb-3 lg:mb-3.5 xl:mb-4">
                   THE COMPANY
                 </h3>
@@ -185,7 +185,7 @@ const About = () => {
                   <FiPlay size={22} fill="currentColor" aria-hidden="true" />
                 </span>
               </Link>
-              <div className="max-w-xl">
+              <div className="min-w-0 max-w-xl">
                 <p className="texts_14_medium uppercase tracking-[0.2em] text-red">
                   UOMO / IN MOTION
                 </p>
@@ -208,7 +208,7 @@ const About = () => {
               {features.map((feature, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 sm:gap-4 xl:gap-4.5"
+                  className="flex min-w-0 items-start gap-3 sm:gap-4 xl:gap-4.5"
                 >
                   <div className="flex size-11.25 shrink-0 items-center justify-center rounded-full bg-[#f7e5e7] text-red">
                     <feature.icon size={22} aria-hidden="true" />
@@ -229,7 +229,7 @@ const About = () => {
           {/* Brand Logos */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-3 md:grid-cols-7 md:gap-5 lg:gap-6 xl:flex xl:items-center xl:justify-between">
             {brands.map((brand, i) => (
-              <div key={brand.alt} className="group relative flex h-16 items-center justify-center overflow-hidden rounded-sm bg-[#f7f7f7]">
+              <div key={brand.alt} className="group relative flex h-16 min-w-0 items-center justify-center overflow-hidden rounded-sm bg-[#f7f7f7]">
                 <CldImage
                   src={brand.src}
                   alt={brand.alt}
