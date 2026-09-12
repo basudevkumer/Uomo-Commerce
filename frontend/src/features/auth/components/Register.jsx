@@ -2,15 +2,14 @@
 import allIcons from "@/constants/icons";
 import Link from 'next/link';
 import React, { useState } from "react";
-import { registerDemoUser } from "@/helpers/dummyData";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import useAuthStore from "@/store/authSlice";
+import useAuth from "@/features/auth/hooks/useAuth";
 import { useRouter } from "next/navigation";
 
 const Register = ({ unMount }) => {
   const { close } = allIcons;
   const router = useRouter();
-  const { setUser } = useAuthStore();
+  const { register, loading } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
   const [registerSuccess, setRegisterSuccess] = useState(false);
@@ -26,31 +25,15 @@ const Register = ({ unMount }) => {
     let newErrors = {};
     if (!formData.username) newErrors.username = "Please enter a username";
     if (!formData.email) newErrors.email = "Please enter your email";
-    if (!formData.password || formData.password.length < 6)
-      newErrors.password = "Password must be at least 6 characters";
+    if (!formData.password || formData.password.length < 8 || !/\d/.test(formData.password))
+      newErrors.password = "Password must be at least 8 characters and include a number";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validate()) {
-      const result = registerDemoUser({
-        displayName: formData.username,
-        email: formData.email,
-        password: formData.password,
-      });
-      if (result.error) {
-        setErrors({ auth: result.error });
-        return;
-      }
-
-      setErrors({});
-      setRegisterSuccess(true);
-      setUser(result.user);
-      setTimeout(() => {
-        if (unMount) unMount(null);
-        router.push("/");
-      }, 1500);
+      try { await register({ name: formData.username, email: formData.email, password: formData.password }); setErrors({}); setRegisterSuccess(true); } catch (error) { setErrors({ auth: error.message }); }
     }
   };
 
@@ -134,7 +117,7 @@ const Register = ({ unMount }) => {
           type="submit"
           className="w-full bg-head text-white pt-5.5 pb-3.5 hover:bg-[#DB4444] transition-all leading-6 cursor-pointer texts_14_medium"
         >
-          REGISTER
+          {loading ? "REGISTERING..." : "REGISTER"}
         </button>
 
         {/* Login link */}

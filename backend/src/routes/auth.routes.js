@@ -1,0 +1,12 @@
+import { Router } from "express";
+import * as auth from "../controllers/auth.controller.js";
+import { authRateLimiter } from "../middleware/rateLimiter.js";
+import { emailRules, loginRules, passwordRules, registerRules, validate } from "../validators/authValidators.js";
+const router = Router();
+router.post("/register", authRateLimiter, registerRules, validate, auth.register);
+router.post("/login", authRateLimiter, loginRules, validate, auth.login);
+router.post("/refresh", auth.refresh); router.post("/logout", auth.logout);
+router.get("/verify-email/:token", auth.verifyEmail);
+router.post("/forgot-password", emailRules, validate, auth.forgotPassword);
+router.post("/reset-password/:token", passwordRules, validate, auth.resetPassword);
+export default router;

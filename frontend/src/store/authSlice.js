@@ -1,15 +1,13 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-
 const useAuthStore = create(
-  persist(
-    (set) => ({
+  (set) => ({
       user: null,
+      accessToken: null,
+      setAuth: ({ user, accessToken }) => set({ user, accessToken }),
       setUser: (user) => set({ user }),
-      clearUser: () => set({ user: null }),
-    }),
-    { name: 'auth-storage' }
-  )
+      setAccessToken: (accessToken) => set({ accessToken }),
+      clearUser: () => set({ user: null, accessToken: null }),
+    })
 )
 
 export const useLoginModalStore = create((set) => ({

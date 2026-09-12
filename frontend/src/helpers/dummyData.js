@@ -1,13 +1,3 @@
-const DEMO_USERS = [
-  {
-    uid: "demo-user-1",
-    displayName: "Demo Shopper",
-    email: "demo@uomo.com",
-    password: "Demo123!",
-  },
-];
-
-const USERS_STORAGE_KEY = "uomo-demo-users";
 const NEWSLETTER_STORAGE_KEY = "uomo-newsletter-subscribers";
 
 export const demoImageUrls = [
@@ -102,45 +92,6 @@ const setStoredItems = (key, items) => {
   }
 };
 
-const publicUser = ({ password, ...user }) => user;
-
-export const getDemoUsers = () => [
-  ...DEMO_USERS,
-  ...getStoredItems(USERS_STORAGE_KEY),
-];
-
-export const authenticateDemoUser = (email, password) => {
-  const user = getDemoUsers().find(
-    (item) =>
-      item.email.toLowerCase() === email.trim().toLowerCase() &&
-      item.password === password,
-  );
-
-  return user ? publicUser(user) : null;
-};
-
-export const registerDemoUser = ({ displayName, email, password }) => {
-  const normalizedEmail = email.trim().toLowerCase();
-  const users = getDemoUsers();
-
-  if (users.some((user) => user.email.toLowerCase() === normalizedEmail)) {
-    return { error: "Email already in use" };
-  }
-
-  const user = {
-    uid: `demo-user-${Date.now()}`,
-    displayName: displayName.trim(),
-    email: normalizedEmail,
-    password,
-  };
-
-  setStoredItems(USERS_STORAGE_KEY, [
-    ...getStoredItems(USERS_STORAGE_KEY),
-    user,
-  ]);
-  return { user: publicUser(user) };
-};
-
 export const saveNewsletterSubscription = (email) => {
   const normalizedEmail = email.trim().toLowerCase();
   const subscribers = getStoredItems(NEWSLETTER_STORAGE_KEY);
@@ -159,4 +110,3 @@ export const projectsAllImages = {
   logo: "https://res.cloudinary.com/cjygzzko/image/upload/v1788880057/logo_1.webp",
 };
 
-export { DEMO_USERS };

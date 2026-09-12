@@ -3,14 +3,13 @@ import allIcons from "@/constants/icons";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from "react";
-import { authenticateDemoUser } from "@/helpers/dummyData";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import useAuthStore from "@/store/authSlice";
+import useAuth from "@/features/auth/hooks/useAuth";
 
 const Login = ({ unMount }) => {
   const { close } = allIcons;
   const router = useRouter();
-  const { setUser } = useAuthStore();
+  const { login, loading } = useAuth();
   //Containe er bahire click korle e cole jabe
   // ══ STATE ══
   const [remember, setRemember] = useState(false);
@@ -33,21 +32,9 @@ const Login = ({ unMount }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validate()) {
-      const user = authenticateDemoUser(formData.email, formData.password);
-      if (!user) {
-        setErrors({ auth: "Invalid email or password" });
-        return;
-      }
-
-      setErrors({});
-      setLoginSuccess(true);
-      setUser(user);
-      setTimeout(() => {
-        unMount(null);
-        router.push("/");
-      }, 1500);
+      try { await login(formData); setErrors({}); setLoginSuccess(true); setTimeout(() => { unMount(null); router.push("/"); }, 700); } catch (error) { setErrors({ auth: error.message }); }
     }
   };
 
@@ -138,7 +125,7 @@ const Login = ({ unMount }) => {
           className="w-full bg-head text-white pt-5.5 pb-3.5
           hover:bg-[#DB4444] transition-all leading-6 cursor-pointer texts_14_medium"
         >
-          LOG IN
+          {loading ? "LOGGING IN..." : "LOG IN"}
         </button>
 
         {/* Create Account */}

@@ -4,6 +4,7 @@ import Providers from "@/providers/QueryProvider";
 import ErrorBoundary from "@/components/common/ErrorBoundary";
 import ModalWrapper from "@/components/common/ModalWrapper";
 import SmoothScroll from "@/components/common/SmoothScroll";
+import AuthBootstrap from "@/features/auth/components/AuthBootstrap";
 
 export const metadata = {
   title: { default: "Uomo — Premium Fashion Store", template: "%s | Uomo" },
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body suppressHydrationWarning>
         <Providers>
+        <AuthBootstrap />
           <SmoothScroll>
           <SiteChrome>
             <ErrorBoundary>

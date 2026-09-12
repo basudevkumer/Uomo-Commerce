@@ -1,0 +1,3 @@
+"use client";
+import { useEffect, useState } from "react"; import { useParams, useRouter } from "next/navigation"; import api from "@/lib/axios";
+export default function VerifyEmailPage() { const { token } = useParams(); const router = useRouter(); const [message, setMessage] = useState("Verifying your email..."); useEffect(() => { api.get(`/auth/verify-email/${token}`).then(({ data }) => setMessage(data.message)).catch((e) => setMessage(e.response?.data?.message || "Verification failed")); }, [token]); return <section><div className="container pt-43 pb-25 text-center"><p className="texts_14_regular text-second">{message}</p><button onClick={() => router.push('/login-register')} className="mt-6 underline">Go to login</button></div></section> }
