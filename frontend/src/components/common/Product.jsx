@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Images from "./Images";
 import { FaHeart } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
@@ -15,20 +15,22 @@ const Product = ({
   itemPrice,
   discountPrice,
 }) => {
+  const [added, setAdded] = useState(false);
   const { addToCart, addToWishlist, removeFromWishlist, wishlistItems } =
     useCartStore();
-  const { user } = useAuthStore();
+  const { user, accessToken } = useAuthStore();
   const { openLoginModal } = useLoginModalStore();
   const isLiked = wishlistItems.some((item) => item.id === id);
   const router = useRouter();
 
   // Add product to cart
   const handleAddToCart = (e) => {
+    e.preventDefault();
     e.stopPropagation();
-    if (!user) {
+    if (!user && !accessToken) {
       openLoginModal();
       return;
-    } //aita jokhn login thakbe na
+    }
     addToCart({
       id,
       name: itemName,
@@ -37,6 +39,8 @@ const Product = ({
       category: catagory,
       quantity: 1,
     });
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 1500);
   };
 
   // Toggle wishlist item
@@ -61,6 +65,14 @@ const Product = ({
 
   return (
     <>
+      {added && (
+        <div
+          role="status"
+          className="fixed right-5 top-5 z-[9999] rounded-lg bg-head px-5 py-3 text-sm font-medium text-white shadow-lg"
+        >
+          Product added to cart ✓
+        </div>
+      )}
       <div
         className="group relative flex h-full w-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-sm shadow-sm transition-all duration-300 hover:shadow-md"
         onClick={() => router.push(`/shop/${id}`)}
@@ -74,10 +86,11 @@ const Product = ({
 
           {/* Add to cart button — visible on hover */}
           <button
+            type="button"
             onClick={handleAddToCart}
-            className="texts_14_medium text-white bg-black w-full pt-4 pb-2.5 text-center absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full opacity-0 group-hover:opacity-100 group-hover:translate-y-0 ease-in-out duration-500 whitespace-nowrap cursor-pointer tracking-widest"
+            className="texts_14_medium text-white bg-black w-full pt-4 pb-2.5 text-center absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-0 opacity-100 sm:translate-y-full sm:opacity-0 sm:group-hover:opacity-100 sm:group-hover:translate-y-0 ease-in-out duration-500 whitespace-nowrap cursor-pointer tracking-widest"
           >
-            ADD TO CART
+            {added ? "ADDED TO CART" : "ADD TO CART"}
           </button>
         </div>
 

@@ -34,7 +34,15 @@ const Login = ({ unMount }) => {
 
   const handleSubmit = async () => {
     if (validate()) {
-      try { await login(formData); setErrors({}); setLoginSuccess(true); setTimeout(() => { unMount(null); router.push("/"); }, 700); } catch (error) { setErrors({ auth: error.message }); }
+      try {
+        const { user } = await login(formData);
+        setErrors({});
+        setLoginSuccess(true);
+        setTimeout(() => {
+          unMount(null);
+          router.push(user?.role === "admin" ? "/admin/dashboard" : "/dashboard");
+        }, 700);
+      } catch (error) { setErrors({ auth: error.message }); }
     }
   };
 

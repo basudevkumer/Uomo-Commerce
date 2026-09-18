@@ -17,11 +17,12 @@ import useAuthStore, { useLoginModalStore } from "@/store/authSlice";
 const Top = ({ id }) => {
   const [count, setCount] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [wishlistPopup, setWishlistPopup] = useState(false);
   const swiperRef = useRef(null);
   const { data: product, isLoading, isError } = useSingleProduct(id);
-  const { addToCart } = useCartStore();
+  const { addToCart, addToWishlist, removeFromWishlist, wishlistItems } =
+    useCartStore();
   const { user } = useAuthStore();
   const { openLoginModal } = useLoginModalStore();
   const handleMinus = () => {
@@ -37,6 +38,7 @@ const Top = ({ id }) => {
       : product?.price;
 
   const totalPrice = discountedPrice ? (discountedPrice * count).toFixed(2) : 0;
+  const isWishlisted = wishlistItems.some((item) => item.id === product?.id);
 
   const handleAddToCart = () => {
     if (!product) return;
@@ -54,6 +56,29 @@ const Top = ({ id }) => {
     });
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2500);
+  };
+
+  const handleWishlist = () => {
+    if (!product) return;
+    if (!user) {
+      openLoginModal();
+      return;
+    }
+
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist({
+        id: product.id,
+        name: product.title,
+        price: discountedPrice,
+        image: product.thumbnail,
+        category: product.category,
+      });
+    }
+
+    setWishlistPopup(true);
+    setTimeout(() => setWishlistPopup(false), 1800);
   };
 
   if (isLoading) {
@@ -94,6 +119,14 @@ const Top = ({ id }) => {
             <p className="texts_14_medium">{product?.title}</p>
             <p className="texts_13_regular">Added to cart ✓</p>
           </div>
+        </div>
+      )}
+      {wishlistPopup && (
+        <div
+          role="status"
+          className="fixed right-6 top-44 z-9999 bg-head px-6 py-4 text-white shadow-lg"
+        >
+          {isWishlisted ? "Added to wishlist ✓" : "Removed from wishlist ✓"}
         </div>
       )}
 
@@ -214,13 +247,7 @@ const Top = ({ id }) => {
 
             <div className="flex gap-x-8 lg:pb-8">
               <button
-                onClick={() => {
-                  if (!user) {
-                    openLoginModal();
-                    return;
-                  }
-                  setIsWishlisted(!isWishlisted);
-                }}
+                onClick={handleWishlist}
                 className="text-head text-[13px] font-medium flex items-center gap-x-2 uppercase relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-[80%] after:border-b-2 after:border-head"
               >
                 {isWishlisted ? (

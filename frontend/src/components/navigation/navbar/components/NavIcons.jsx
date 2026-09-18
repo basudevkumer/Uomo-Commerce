@@ -56,7 +56,7 @@ const NavIcons = () => {
 
   const handleClick = (item) => {
     if (item.name === "Account" && user) {
-      router.push("/dashboard");
+      router.push(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
       return;
     }
     setOpen((prev) => (prev === item.id ? null : item.id));

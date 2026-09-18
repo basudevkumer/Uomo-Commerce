@@ -1,4 +1,70 @@
 "use client";
 import { Download, Eye } from "lucide-react";
 import { orders, PageIntro, Status, Card } from "../ui/DashboardPrimitives";
-export default function DashboardOrder() { return <div><PageIntro eyebrow="My account / Orders" title="My orders" description="Review your recent purchases and keep an eye on delivery status." /><Card className="overflow-hidden"><div className="flex items-center justify-between border-b border-footer px-5 py-5 sm:px-6"><div><h2 className="text-[15px] font-semibold">Order history</h2><p className="mt-1 text-[12px] text-second">24 orders placed in total</p></div><button className="hidden items-center gap-2 rounded-xl border border-footer px-3 py-2 text-[11px] font-semibold sm:flex"><Download size={14}/> Export</button></div><div className="overflow-x-auto"><table className="w-full min-w-[760px] text-left"><thead className="bg-secondbg text-[10px] uppercase tracking-[0.12em] text-second"><tr><th className="px-6 py-3">Order</th><th className="px-6 py-3">Date</th><th className="px-6 py-3">Items</th><th className="px-6 py-3">Total</th><th className="px-6 py-3">Status</th><th className="px-6 py-3"></th></tr></thead><tbody className="divide-y divide-footer">{orders.map(o=><tr key={o.id} className="hover:bg-secondbg"><td className="px-6 py-5 text-[12px] font-semibold">{o.id}</td><td className="px-6 py-5 text-[12px] text-second">{o.date}</td><td className="px-6 py-5 text-[12px] text-second">{o.product}</td><td className="px-6 py-5 text-[12px] font-semibold">{o.total}</td><td className="px-6 py-5"><Status status={o.status}/></td><td className="px-6 py-5"><button aria-label={`View ${o.id}`} className="rounded-lg border border-footer p-2 text-second hover:bg-secondbg"><Eye size={14}/></button></td></tr>)}</tbody></table></div></Card></div>; }
+export default function DashboardOrder() {
+  return (
+    <div>
+      <PageIntro
+        eyebrow="My account / Orders"
+        title="My orders"
+        description="Review your recent purchases and keep an eye on delivery status."
+      />
+      <Card className="overflow-hidden">
+        <div className="flex items-center justify-between border-b border-footer px-5 py-5 sm:px-6">
+          <div>
+            <h2 className="text-[15px] font-semibold">Order history</h2>
+            <p className="mt-1 text-[12px] text-second">
+              24 orders placed in total
+            </p>
+          </div>
+          <button className="hidden items-center gap-2 rounded-xl border border-footer px-3 py-2 text-[11px] font-semibold sm:flex">
+            <Download size={14} /> Export
+          </button>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[760px] text-left">
+            <thead className="bg-secondbg text-[10px] uppercase tracking-[0.12em] text-second">
+              <tr>
+                <th className="px-6 py-3">Order</th>
+                <th className="px-6 py-3">Date</th>
+                <th className="px-6 py-3">Items</th>
+                <th className="px-6 py-3">Total</th>
+                <th className="px-6 py-3">Status</th>
+                <th className="px-6 py-3"></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-footer">
+              {orders.map((o) => (
+                <tr key={o.id} className="hover:bg-secondbg">
+                  <td className="px-6 py-5 text-[12px] font-semibold">
+                    {o.id}
+                  </td>
+                  <td className="px-6 py-5 text-[12px] text-second">
+                    {o.date}
+                  </td>
+                  <td className="px-6 py-5 text-[12px] text-second">
+                    {o.product}
+                  </td>
+                  <td className="px-6 py-5 text-[12px] font-semibold">
+                    {o.total}
+                  </td>
+                  <td className="px-6 py-5">
+                    <Status status={o.status} />
+                  </td>
+                  <td className="px-6 py-5">
+                    <button
+                      aria-label={`View ${o.id}`}
+                      className="rounded-lg border border-footer p-2 text-second hover:bg-secondbg"
+                    >
+                      <Eye size={14} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}

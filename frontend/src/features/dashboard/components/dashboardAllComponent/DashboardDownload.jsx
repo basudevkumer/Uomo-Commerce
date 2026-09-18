@@ -38,7 +38,9 @@ export default function DashboardDownload() {
       <Card className="overflow-hidden">
         <div className="border-b border-footer px-5 py-5 sm:px-6">
           <h2 className="text-[15px] font-semibold">Available files</h2>
-          <p className="mt-1 text-[12px] text-second">{downloads.length} files linked to your orders</p>
+          <p className="mt-1 text-[12px] text-second">
+            {downloads.length} files linked to your orders
+          </p>
         </div>
 
         {/* Desktop table */}
@@ -63,8 +65,12 @@ export default function DashboardDownload() {
                       {item.product}
                     </span>
                   </td>
-                  <td className="px-6 py-5 text-[12px] text-second">{item.date}</td>
-                  <td className="px-6 py-5 text-[12px] text-second">{item.expires}</td>
+                  <td className="px-6 py-5 text-[12px] text-second">
+                    {item.date}
+                  </td>
+                  <td className="px-6 py-5 text-[12px] text-second">
+                    {item.expires}
+                  </td>
                   <td className="px-6 py-5">
                     <button className="inline-flex items-center gap-2 rounded-xl bg-head px-4 py-2.5 text-[11px] font-semibold text-white hover:bg-black">
                       <Download size={13} /> Download
@@ -87,7 +93,9 @@ export default function DashboardDownload() {
                 <p className="text-[13px] font-semibold">{item.product}</p>
               </div>
               <p className="mt-3 text-[11px] text-second">Date: {item.date}</p>
-              <p className="mt-1 text-[11px] text-second">Expires: {item.expires}</p>
+              <p className="mt-1 text-[11px] text-second">
+                Expires: {item.expires}
+              </p>
               <button className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-head py-2.5 text-[11px] font-semibold text-white hover:bg-black">
                 <Download size={13} /> Download
               </button>

@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-export default async function connectDB() {
+async function connectDB() {
   // MONGO_URI is the documented name. The fallback keeps the existing local .env working
   // while it is migrated from the original MONGDB_URL typo.
   const mongoUri = process.env.MONGO_URI || process.env.MONGDB_URL;
@@ -8,3 +8,5 @@ export default async function connectDB() {
   await mongoose.connect(mongoUri);
   console.log("MongoDB connected");
 }
+
+module.exports = connectDB;

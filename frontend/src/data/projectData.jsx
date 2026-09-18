@@ -129,7 +129,7 @@ const navItems = [
       { name: "Coming Soon", link: "/coming-soon" },
       { name: "404", link: "/404" },
       { name: "User Dashboard", link: "/dashboard" },
-      { name: "Amin Dashboard", link: "/admin" },
+      { name: "Admin Dashboard", link: "/admin/dashboard" },
     ],
   },
 ];

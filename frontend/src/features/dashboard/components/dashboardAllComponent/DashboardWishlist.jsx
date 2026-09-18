@@ -1,10 +1,113 @@
 "use client";
+
+import Link from "next/link";
+import { useState } from "react";
 import { Heart, ShoppingBag } from "lucide-react";
 import { Card, PageIntro } from "../ui/DashboardPrimitives";
-const items=[
- {name:"Minimal leather tote",cat:"Bags",price:"$128"},
- {name:"Everyday sneakers",cat:"Shoes",price:"$156"},
- {name:"Classic cotton shirt",cat:"Shirts",price:"$84"},
- {name:"Wool blend overshirt",cat:"Outerwear",price:"$112"},
-];
-export default function DashboardWishlist(){return <div><PageIntro eyebrow="My account / Wishlist" title="Wishlist" description="Pieces you have saved for later."/><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{items.map((item,i)=><Card key={item.name} className="group overflow-hidden"><div className={`relative aspect-[0.82] overflow-hidden bg-gradient-to-br ${["from-[#d9d2c9] via-[#f0ebe4] to-[#b9afa3]","from-[#d6d8d9] via-[#f2f2f1] to-[#9fa5a8]","from-[#ded6c9] via-[#f4f0e8] to-[#b5a995]","from-[#c9c3bd] via-[#eeeae6] to-[#8e8984]"][i]}`}><div className="absolute inset-[10%] rounded-[18%] bg-white/25 blur-[1px] transition duration-500 group-hover:scale-[1.04]"/><div className="absolute bottom-[12%] left-1/2 h-[48%] w-[55%] -translate-x-1/2 rounded-[35%] border border-white/35 bg-black/[0.07] shadow-2xl transition duration-500 group-hover:scale-[1.04]"/><button aria-label="Remove from wishlist" className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-white/95 text-red shadow-sm"><Heart size={15} fill="currentColor"/></button>{i===0&&<span className="absolute bottom-3 left-3 rounded-full bg-white px-2.5 py-1 text-[9px] font-semibold">BEST SELLER</span>}</div><div className="p-4"><p className="text-[10px] uppercase tracking-[0.12em] text-second">{item.cat}</p><div className="mt-1 flex items-start justify-between gap-3"><div><h2 className="text-[13px] font-medium">{item.name}</h2><p className="mt-1 text-[12px] font-semibold">{item.price}</p></div><button aria-label="Add to bag" className="rounded-lg border border-footer p-2 hover:bg-head hover:text-white"><ShoppingBag size={14}/></button></div></div></Card>)}</div></div>}
+import useCartStore from "@/store/cartSlice";
+
+export default function DashboardWishlist() {
+  const [toast, setToast] = useState("");
+  const { wishlistItems, removeFromWishlist, addToCart } = useCartStore();
+
+  const handleAddToCart = (item) => {
+    addToCart({ ...item, quantity: 1 });
+    setToast(`${item.name} added to cart ✓`);
+    window.setTimeout(() => setToast(""), 3000);
+  };
+
+  return (
+    <div>
+      {toast && (
+        <div
+          role="status"
+          className="pointer-events-none fixed bottom-6 left-1/2 z-[99999] -translate-x-1/2 rounded-lg bg-head px-6 py-3 text-sm font-medium text-white shadow-2xl"
+        >
+          {toast}
+        </div>
+      )}
+      <PageIntro
+        eyebrow="My account / Wishlist"
+        title="Wishlist"
+        description="Pieces you have saved for later."
+      />
+
+      {wishlistItems.length === 0 ? (
+        <Card className="px-6 py-16 text-center">
+          <Heart className="mx-auto text-second" size={34} />
+          <h2 className="mt-4 text-[20px] font-semibold text-head">
+            Your wishlist is empty
+          </h2>
+          <p className="mt-2 text-[13px] text-second">
+            Tap the heart on a product to save it here.
+          </p>
+          <Link
+            href="/shop"
+            className="mt-6 inline-flex bg-head px-5 py-3 text-[12px] font-semibold text-white hover:bg-red"
+          >
+            BROWSE PRODUCTS
+          </Link>
+        </Card>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {wishlistItems.map((item) => (
+            <Card key={item.id} className="group overflow-hidden">
+              <Link href={`/shop/${item.id}`} className="block">
+                <div className="aspect-[0.82] overflow-hidden bg-secondbg">
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.04]"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-second">
+                      No image
+                    </div>
+                  )}
+                </div>
+              </Link>
+
+              <div className="p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate text-[10px] uppercase tracking-[0.12em] text-second">
+                      {item.category || "Product"}
+                    </p>
+                    <h2 className="mt-1 truncate text-[13px] font-medium text-head">
+                      {item.name}
+                    </h2>
+                    <p className="mt-1 text-[12px] font-semibold text-head">
+                      ${item.price}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Remove from wishlist"
+                    onClick={() => removeFromWishlist(item.id)}
+                    className="flex size-9 shrink-0 items-center justify-center rounded-full bg-secondbg text-red hover:bg-red hover:text-white"
+                  >
+                    <Heart size={15} fill="currentColor" />
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    handleAddToCart(item);
+                  }}
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border border-footer py-2.5 text-[11px] font-semibold text-head hover:bg-head hover:text-white"
+                >
+                  <ShoppingBag size={14} />
+                  ADD TO CART
+                </button>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

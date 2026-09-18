@@ -7,5 +7,9 @@ export const metadata = {
 };
 
 export default function AdminLayout({ children }) {
-  return <InteractionLayer mode="admin"><AdminShell>{children}</AdminShell></InteractionLayer>;
+  return (
+    <InteractionLayer mode="admin">
+      <AdminShell>{children}</AdminShell>
+    </InteractionLayer>
+  );
 }

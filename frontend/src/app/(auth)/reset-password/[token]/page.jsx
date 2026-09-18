@@ -1,3 +1,57 @@
 "use client";
-import { useState } from "react"; import { useParams, useRouter } from "next/navigation"; import useAuth from "@/features/auth/hooks/useAuth";
-export default function ResetPasswordPage() { const { token } = useParams(); const router = useRouter(); const [password, setPassword] = useState(""); const [confirm, setConfirm] = useState(""); const [message, setMessage] = useState(""); const { resetPassword, loading, error } = useAuth(); const submit = async (e) => { e.preventDefault(); if (password !== confirm) return; try { setMessage((await resetPassword(token, password)).message); setTimeout(() => router.push('/login-register'), 1000); } catch {} }; return <section><div className="container pt-43 pb-25 max-w-xl mx-auto px-5"><h1 className="texts_16_medium text-head tracking-widest mb-5">CHOOSE A NEW PASSWORD</h1>{message && <p className="text-green-700 text-sm mb-4">{message}</p>}{error && <p className="text-red-500 text-sm mb-4">{error}</p>}<form onSubmit={submit} className="flex flex-col gap-5"><input required minLength={8} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="New password *" className="border border-footer px-4 py-4" /><input required minLength={8} type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} placeholder="Confirm password *" className="border border-footer px-4 py-4" /><button disabled={loading || password !== confirm} className="bg-head text-white py-4">{loading ? "RESETTING..." : "RESET PASSWORD"}</button></form></div></section> }
+import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import useAuth from "@/features/auth/hooks/useAuth";
+export default function ResetPasswordPage() {
+  const { token } = useParams();
+  const router = useRouter();
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [message, setMessage] = useState("");
+  const { resetPassword, loading, error } = useAuth();
+  const submit = async (e) => {
+    e.preventDefault();
+    if (password !== confirm) return;
+    try {
+      setMessage((await resetPassword(token, password)).message);
+      setTimeout(() => router.push("/login-register"), 1000);
+    } catch {}
+  };
+  return (
+    <section>
+      <div className="container pt-43 pb-25 max-w-xl mx-auto px-5">
+        <h1 className="texts_16_medium text-head tracking-widest mb-5">
+          CHOOSE A NEW PASSWORD
+        </h1>
+        {message && <p className="text-green-700 text-sm mb-4">{message}</p>}
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+        <form onSubmit={submit} className="flex flex-col gap-5">
+          <input
+            required
+            minLength={8}
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="New password *"
+            className="border border-footer px-4 py-4"
+          />
+          <input
+            required
+            minLength={8}
+            type="password"
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            placeholder="Confirm password *"
+            className="border border-footer px-4 py-4"
+          />
+          <button
+            disabled={loading || password !== confirm}
+            className="bg-head text-white py-4"
+          >
+            {loading ? "RESETTING..." : "RESET PASSWORD"}
+          </button>
+        </form>
+      </div>
+    </section>
+  );
+}

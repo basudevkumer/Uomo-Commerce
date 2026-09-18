@@ -3,13 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "description": "Uomo Commerce Express authentication API",
-  "type": "module",
-  "scripts": { "dev": "nodemon src/server.js", "start": "node src/server.js" },
-  "dependencies": {
-    "bcrypt": "^6.0.0", "cookie-parser": "^1.4.7", "cors": "^2.8.6",
-    "dotenv": "^17.4.2", "express": "^5.2.1", "express-rate-limit": "^8.7.0",
-    "express-validator": "^7.3.2", "jsonwebtoken": "^9.0.3", "mongoose": "^9.10.0",
-    "nodemailer": "^10.0.9"
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "seed:admin": "node src/scripts/seedDemoAdmin.js"
   },
-  "devDependencies": { "nodemon": "^3.1.14" }
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "express-validator": "^7.3.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.0",
+    "nodemailer": "^10.0.9",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }
